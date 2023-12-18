@@ -4,7 +4,7 @@
 
 # 环境依赖
 
-## 1.最好使用docker ubuntu20.04，如果不使用docker，直接使用ubuntu 20.04也可以 .
+## 1.最好使用docker ubuntu20.04，如果不使用docker，直接使用ubuntu 20.04也可以 . 使用dokcer注意，数据在主机上时需要使用ROS分布式节点的配置方法配置 .
 
 ## 2.这个包在Neotic上测试过，未在其他版本的ROS上测试过，依赖的包如下.
 
