@@ -32,7 +32,11 @@ roslaunch lio_sam run.launch
 ```
 rosbag play your-bag.bag --topic /velodyne_points /zed2i/zed_node/imu/data /rslidar_points_m1 /fixposition/navsatfix
 ```
+
 /velodyne_points:用来slam的话题
+
 /zed2i/zed_node/imu/data：用来slam的imu话题
+
 /fixposition/navsatfix ：用来做gps融合的话题,需要在params.yaml中把 useImuHeadingInitialization设置为true，目前在小车测试gps高度有跳变，导致融合后的z轴也有跳变，谨慎使用
+
 /rslidar_points_m1: robsense m1 激光雷达，用来建立高程图 .
