@@ -19,3 +19,16 @@
   sudo add-apt-repository ppa:borglab/gtsam-release-4.0
   sudo apt install libgtsam-dev libgtsam-unstable-dev
   ```
+## 3.编译与运行 .
+
+1. 先编译
+   
+1. 运行:
+```
+roslaunch lio_sam run.launch
+```
+
+2. 播放数据:
+```
+rosbag play your-bag.bag -r 3
+```
