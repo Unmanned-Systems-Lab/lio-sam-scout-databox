@@ -1,0 +1,30 @@
+<launch>
+
+    <arg name="project" default="lio_sam"/>
+
+    <env name="ROSCONSOLE_CONFIG_FILE" value="$(find lio_sam)/launch/include/rosconsole/rosconsole_error.conf"/>
+    
+    <!-- EKF GPS-->
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_gps" respawn="true">
+        <remap from="odometry/filtered" to="odometry/navsat" />
+    </node>
+
+    <!-- Navsat -->
+    <node pkg="robot_localization" type="navsat_transform_node" name="navsat" respawn="true" output="screen">
+        <!-- <rosparam param="datum">[42.35893211, -71.09345588, 0.0, world, base_link]</rosparam> -->
+        <remap to="imu_correct" from="imu/data"  />
+        <remap to="fixposition/navsatfix" from="gps/fix" />
+        <!-- <remap from="imu/data" to="imu_correct" />
+        <remap from="gps/fix" to="gps/fix" /> -->
+        <remap from="odometry/filtered" to="odometry/navsat" />
+        <param name="wait_for_datum" value="true"/>
+        <!-- <param name="use_odometry_yaw" value="true"/>
+        <param name="yaw_offset" value="0"/> -->
+        <rosparam param="datum">[29.571331317, 106.46397977]</rosparam>
+        <!-- <rosparam param="datum">[40.663492358333336, -74.56451277]</rosparam> -->
+    </node>
+<!-- 
+    <node pkg="tf2_ros" type="static_transform_publisher" name="base_link_to_poi_tf_publisher" args="0 0 0 0 0 0 base_link POI" />
+    <node pkg="tf2_ros" type="static_transform_publisher" name="extrinsic_tf_publisher" args="0 0 0 0.0224 0.0129 -0.0071 base_link imu_correct_link"/> -->
+    
+</launch>

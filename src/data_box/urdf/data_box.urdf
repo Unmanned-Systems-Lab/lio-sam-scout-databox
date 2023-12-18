@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="data_box">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.000787428914994281 -1.83075406456207E-05 0.107323331270255"
+        rpy="0 0 0" />
+      <mass
+        value="1.15838359805273" />
+      <inertia
+        ixx="0.0219713158559028"
+        ixy="-9.40626592111054E-07"
+        ixz="9.2738420089645E-05"
+        iyy="0.00422673444217098"
+        iyz="-7.70783645651175E-07"
+        izz="0.0207259268117321" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://data_box/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://data_box/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="rs_lidar_helios_16_link">
+    <inertial>
+      <origin
+        xyz="-0.00452075202393731 -7.80288514685284E-05 0.260457610770344"
+        rpy="0 0 0" />
+      <mass
+        value="0.113882797696896" />
+      <inertia
+        ixx="0.000125295044463457"
+        ixy="1.11588859800229E-07"
+        ixz="3.34574585202296E-07"
+        iyy="0.000124081102889914"
+        iyz="-2.66581194133952E-08"
+        izz="0.000195631931532674" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://data_box/meshes/rs_lidar_helios_16_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://data_box/meshes/rs_lidar_helios_16_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rs_lidar_helios_16_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="rs_lidar_helios_16_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="velodyne">
+    <inertial>
+      <origin
+        xyz="-0.00452075202393731 -7.80288514685284E-05 0.260457610770344"
+        rpy="0 0 0" />
+      <mass
+        value="0.113882797696896" />
+      <inertia
+        ixx="0.000125295044463457"
+        ixy="1.11588859800229E-07"
+        ixz="3.34574585202296E-07"
+        iyy="0.000124081102889914"
+        iyz="-2.66581194133952E-08"
+        izz="0.000195631931532674" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://data_box/meshes/rs_lidar_helios_16_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://data_box/meshes/rs_lidar_helios_16_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="velodyne_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="velodyne" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="fix_position_link">
+    <inertial>
+      <origin
+        xyz="-0.0210019786922248 0.000535676714985181 0.144948491359208"
+        rpy="0 0 0" />
+      <mass
+        value="0.118063290085794" />
+      <inertia
+        ixx="0.00012999992297737"
+        ixy="1.73846793301927E-06"
+        ixz="-7.00576635618777E-08"
+        iyy="0.000194643676178331"
+        iyz="2.51581795172831E-07"
+        izz="0.000313256645274373" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://data_box/meshes/fix_position_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://data_box/meshes/fix_position_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="fix_position_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="fix_position_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="zed_2i_link">
+    <inertial>
+      <origin
+        xyz="0.0406020692823187 2.17827400030152E-05 0.103921804825248"
+        rpy="0 0 0" />
+      <mass
+        value="0.168079517614203" />
+      <inertia
+        ixx="0.000384913057926628"
+        ixy="6.79928635093987E-09"
+        ixz="-6.96487594399274E-08"
+        iyy="3.26812596707518E-05"
+        iyz="1.86536439271353E-09"
+        izz="0.000392812643360746" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://data_box/meshes/zed_2i_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://data_box/meshes/zed_2i_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="zed_2i_joint"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="zed_2i_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="livox_avia_link">
+    <inertial>
+      <origin
+        xyz="0.0152909813480095 0.214879764678257 0.0499268694334654"
+        rpy="0 0 0" />
+      <mass
+        value="0.350001642183942" />
+      <inertia
+        ixx="0.000227163794322702"
+        ixy="3.05563807786846E-06"
+        ixz="-7.86822364841687E-08"
+        iyy="0.000364824237094972"
+        iyz="4.20617351186621E-08"
+        izz="0.000347412468045197" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://data_box/meshes/livox_avia_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://data_box/meshes/livox_avia_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="livox_avia_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="livox_avia_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="rs_lidar_m1_link">
+    <inertial>
+      <origin
+        xyz="-9.9075991481179E-05 -0.0114021409702183 0.0270396973956233"
+        rpy="0 0 0" />
+      <mass
+        value="0.125138987066341" />
+      <inertia
+        ixx="0.000125858785929919"
+        ixy="-2.52580122830284E-07"
+        ixz="-5.62445354874571E-07"
+        iyy="0.000122011142430664"
+        iyz="-8.5697690021362E-07"
+        izz="0.000219878636311986" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://data_box/meshes/rs_lidar_m1_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://data_box/meshes/rs_lidar_m1_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rs_lidar_m1_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="rs_lidar_m1_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="antenna_left_link">
+    <inertial>
+      <origin
+        xyz="0.00092626279799124 0.266141829669457 0.175614231095598"
+        rpy="0 0 0" />
+      <mass
+        value="0.0635136221031923" />
+      <inertia
+        ixx="0.000101817017024313"
+        ixy="-6.07457557718795E-08"
+        ixz="1.26778224996059E-08"
+        iyy="0.00010182994551348"
+        iyz="1.04586743908485E-08"
+        izz="0.000198738425480425" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://data_box/meshes/antenna_left_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://data_box/meshes/antenna_left_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="antenna_left_joint"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="antenna_left_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="antenna_right_link">
+    <inertial>
+      <origin
+        xyz="0.00092856699811561 -0.26614164521 0.175615361300037"
+        rpy="0 0 0" />
+      <mass
+        value="0.0635188236843611" />
+      <inertia
+        ixx="0.000101817178722521"
+        ixy="5.98749533463758E-08"
+        ixz="1.22645896383536E-08"
+        iyy="0.000101829480333974"
+        iyz="-1.04999705769353E-08"
+        izz="0.000198738445923012" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://data_box/meshes/antenna_right_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://data_box/meshes/antenna_right_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="antenna_right_joint"
+    type="continuous">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="antenna_right_link" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link name="POI"> </link>
+  <joint name="POI_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="POI" />
+    <origin xyz="0 0 0" rpy="0 0 0" />
+  </joint>
+  <link name="imu_correct_link"> </link>
+  <joint name="imu_correct_joint" type="fixed">
+    <parent link="base_link" />
+    <child link="imu_correct_link" />
+    <origin xyz="0 0 0" rpy="0.0224 0.0129 -0.0071" />
+  </joint>
+</robot>
