@@ -44,5 +44,5 @@ rosbag play your-bag.bag --topic /velodyne_points /zed2i/zed_node/imu/data /rsli
 # 三、测试
 
 <p align='center'>
-    <img src="./doc/GPS+3D" alt="drawing" width="800"/>
+    <img src="./doc/GPS+3D." alt="drawing" width="800"/>
 </p>
