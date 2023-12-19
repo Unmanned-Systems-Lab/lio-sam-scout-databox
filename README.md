@@ -72,7 +72,7 @@ rosbag play your-bag.bag --topic /velodyne_points /zed2i/zed_node/imu/data /rsli
 
 横轴：同上...
 
-试验结果：GPS输出海拔高度在200米左右，存在跳变。lio-sam输出和imu预计分输出高度在0米左右，因为未融合GPS的海拔高度，只融合了gps的经纬度和orientation，lio-sam和imu预积分的结果都没有发生明显的跳变。
+试验结果：试验结果和2中，启用GPS融合，不使用GPS的海拔高度的试验结果差不多。
 <p align='center'>
     <img src="./doc/没有GPS+G.png" alt="drawing4" width="800"/>
     <img src="./doc/没有GPS.png" alt="drawing5" width="800"/>
