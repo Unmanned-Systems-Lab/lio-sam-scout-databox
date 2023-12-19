@@ -1,8 +1,8 @@
-# lio-sam-scout-databox 包的介绍
+# 一、lio-sam-scout-databox 包的介绍
 
 这个包是使用data_box，进行lio_sam建图的程序，所谓data_box是我们开发的数据采集装置，上面配置了组合导航、双目相机、激光雷达。Lio_sam所使用的激光雷达是rslidar helios 16p ，imu使用的是双目摄像头的imu。
 
-# 环境依赖
+# 二、环境依赖
 
 ## 1.最好使用docker ubuntu20.04，如果不使用docker，直接使用ubuntu 20.04也可以 . 使用dokcer注意，数据在主机上时需要使用ROS分布式节点的配置方法配置 .
 
@@ -23,12 +23,12 @@
 
 1. 先编译
    
-1. 运行:
+2. 运行:
 ```
 roslaunch lio_sam run.launch
 ```
 
-2. 播放数据:
+3. 播放数据:
 ```
 rosbag play your-bag.bag --topic /velodyne_points /zed2i/zed_node/imu/data /rslidar_points_m1 /fixposition/navsatfix
 ```
@@ -41,3 +41,8 @@ rosbag play your-bag.bag --topic /velodyne_points /zed2i/zed_node/imu/data /rsli
   
   /rslidar_points_m1: robsense m1 激光雷达，用来建立高程图 .
 
+# 三、测试
+
+<p align='center'>
+    <img src="./doc/GPS+3D" alt="drawing" width="800"/>
+</p>
