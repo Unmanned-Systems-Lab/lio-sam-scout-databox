@@ -42,7 +42,9 @@ rosbag play your-bag.bag --topic /velodyne_points /zed2i/zed_node/imu/data /rsli
   /rslidar_points_m1: robsense m1 激光雷达，用来建立高程图 .
 
 # 三、测试
-
+启用GPS融合，并且使用GPS的海拔高度
 <p align='center'>
+    <img src="./doc/GPS+3D+g.png" alt="drawing2" width="800"/>
     <img src="./doc/GPS+3D.png" alt="drawing" width="800"/>
+    
 </p>
