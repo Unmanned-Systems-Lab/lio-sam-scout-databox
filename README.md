@@ -1,6 +1,6 @@
 # 一、lio-sam-scout-databox 包的介绍
 
-这个包是使用data_box，进行lio_sam建图的程序，所谓data_box是我们开发的数据采集装置，上面配置了组合导航、双目相机、激光雷达。Lio_sam所使用的激光雷达是rslidar helios 16p ，imu使用的是双目摄像头的imu。这个程序包里面的参数是经过标定后设置的，硬件是data_box，如果要使用其他硬件，需要重新标定，按照lio-sam官方的方法。
+这个包是使用data_box，进行lio_sam建图的程序，所谓data_box是我们开发的数据采集装置，上面配置了组合导航、双目相机、激光雷达。Lio_sam所使用的激光雷达是rslidar helios 16p ，imu使用的是双目摄像头的imu。这个程序包里面的参数是经过标定后设置的，硬件是data_box，如果要使用其他硬件，需要重新标定，按照lio-sam官方的方法设置参数。
 
 # 二、环境依赖
 
