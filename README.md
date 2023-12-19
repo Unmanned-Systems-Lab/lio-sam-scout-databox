@@ -43,7 +43,7 @@ rosbag play your-bag.bag --topic /velodyne_points /zed2i/zed_node/imu/data /rsli
 
 # 三、测试
 
-启用GPS融合，并且使用GPS的海拔高度。下面两图分别是高度图（上图）、高度前后相邻两帧相减图（下图）。
+1.启用GPS融合，并且使用GPS的海拔高度。下面两图分别是高度图（上图）、高度前后相邻两帧相减图（下图）。
 
 纵轴：红色是组合导航fixposition输出的话题/fixposition/navsatfix给出的海拔高度，蓝色是lio-sam输出话题/lio-sam/mapping/odometry给出的里程计的高度z值，我没理解错的话这个话题是融合后输出的最终结果，如果开了gps就是imu+lidar+gps，如何没开gps就是imu+lidar。绿色是话题/odometry/imu，imu预积分给出的里程计。
 
@@ -54,5 +54,10 @@ rosbag play your-bag.bag --topic /velodyne_points /zed2i/zed_node/imu/data /rsli
 <p align='center'>
     <img src="./doc/GPS+3D+g.png" alt="drawing2" width="800"/>
     <img src="./doc/GPS+3D.png" alt="drawing" width="800"/>
-    
+</p>
+2.启用GPS融合，不使用GPS的海拔高度。下面两图分别是高度图（上图）、高度前后相邻两帧相减图（下图）。
+
+<p align='center'>
+    <img src="./doc/GPS+2D+g.png" alt="drawing4" width="800"/>
+    <img src="./doc/GPS+2D.png" alt="drawing5" width="800"/>
 </p>
