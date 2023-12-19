@@ -49,7 +49,7 @@ rosbag play your-bag.bag --topic /velodyne_points /zed2i/zed_node/imu/data /rsli
 
 横轴：时间戳
 
-通过两幅图片可以看出，在融合GPS的时候lio-sam输出的里程计的z轴有跳变，这对于高程图建图来说是有问题的，对高程图建图的影响非常大。一开始是组合导航给出的GPS的海拔高度发生了跳变，lio-sam未发生跳变，因为此时lio-sam以自己的推算为主，而不是gps，但是由于gps长时间都是保持跳变后的海拔，经过时间积累，使整个lio-sam系统跳变。我还尝试了修改GPS的方差阈值，当阈值较小时才允许与lio-sam融合，但并无明显效果，因为这里的GPS话题来自fixposition/navsatfix，是经过组合导航输出的GPS，经过了一定的融合过程，精度本来就是比较高的。
+试验结果：通过两幅图片可以看出，在融合GPS的时候lio-sam输出的里程计的z轴有跳变，这对于高程图建图来说是有问题的，对高程图建图的影响非常大。一开始是组合导航给出的GPS的海拔高度发生了跳变，lio-sam未发生跳变，因为此时lio-sam以自己的推算为主，而不是gps，但是由于gps长时间都是保持跳变后的海拔，经过时间积累，使整个lio-sam系统跳变。我还尝试了修改GPS的方差阈值，当阈值较小时才允许与lio-sam融合，但并无明显效果，因为这里的GPS话题来自fixposition/navsatfix，是经过组合导航输出的GPS，经过了一定的融合过程，精度本来就是比较高的。
 
 <p align='center'>
     <img src="./doc/GPS+3D+g.png" alt="drawing2" width="800"/>
@@ -57,6 +57,11 @@ rosbag play your-bag.bag --topic /velodyne_points /zed2i/zed_node/imu/data /rsli
 </p>
 2.启用GPS融合，不使用GPS的海拔高度。下面两图分别是高度图（上图）、高度前后相邻两帧相减图（下图）。
 
+纵轴：同上...
+
+横轴：同上...
+
+试验结果：GPS输出海拔高度在200米左右，存在跳变。lio-sam输出和imu预计分输出高度在0米左右，因为未融合GPS的海拔高度，只融合了gps的经纬度和orientation，lio-sam和imu预积分的结果都没有发生明显的跳变。
 <p align='center'>
     <img src="./doc/GPS+2D+g.png" alt="drawing4" width="800"/>
     <img src="./doc/GPS+2D.png" alt="drawing5" width="800"/>
