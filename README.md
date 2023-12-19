@@ -43,7 +43,7 @@ rosbag play your-bag.bag --topic /velodyne_points /zed2i/zed_node/imu/data /rsli
 
 # 三、测试
 
-启用GPS融合，并且使用GPS的海拔高度
+启用GPS融合，并且使用GPS的海拔高度，上图是高度变化，分别是
 
 <p align='center'>
     <img src="./doc/GPS+3D+g.png" alt="drawing2" width="800"/>
