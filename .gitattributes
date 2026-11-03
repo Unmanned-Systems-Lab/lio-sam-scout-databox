@@ -1,7 +1,17 @@
 /ros2/** text=auto eol=lf
 /README.md text eol=lf
-/README_ROS1.md text eol=lf
+/legacy/ros1/README.md text eol=lf
 
 # Preserve formatting in the pinned upstream import and its context patch.
 ros2/src/lio_sam_ros2/** -whitespace
 ros2/deploy/lio_sam_ros2.patch -whitespace
+
+# Keep vendored upstream formatting unchanged.
+ros2/third_party/gtsam/** -text -whitespace conflict-marker-size=1000
+ros2/src/rslidar_sdk/** -text -whitespace conflict-marker-size=1000
+ros2/src/rslidar_msg/** -text -whitespace conflict-marker-size=1000
+ros2/src/scout_vehicle_description/** -text -whitespace conflict-marker-size=1000
+ros2/src/scout_sensor_kit_description/** -text -whitespace conflict-marker-size=1000
+ros2/src/zed-ros2-wrapper/** -text -whitespace conflict-marker-size=1000
+ros2/src/zed_description/** -text -whitespace conflict-marker-size=1000
+ros2/src/zed_msgs/** -text -whitespace conflict-marker-size=1000

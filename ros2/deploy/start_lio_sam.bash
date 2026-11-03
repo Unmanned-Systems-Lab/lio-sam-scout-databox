@@ -15,7 +15,10 @@ done
 if [[ "$show_rviz" == true ]]; then
   source "$deploy_dir/desktop_env.bash"
 fi
-existing_nodes="$(timeout 15 ros2 node list 2>/dev/null || true)"
+if ! existing_nodes="$(timeout 15 ros2 node list --no-daemon --spin-time 2)"; then
+  echo 'ROS 2 通信检查失败，请检查 DDS 配置；未启动任何建图进程。' >&2
+  exit 1
+fi
 if printf '%s\n' "$existing_nodes" | grep -Eq '/lio_sam_(imageProjection|featureExtraction|mapOptimization|imu_preintegration|imuPreintegration|transformFusion)$|/robosense_to_lio$'; then
   echo '已有 LIO-SAM 节点运行，请先停止该次启动。' >&2
   exit 1

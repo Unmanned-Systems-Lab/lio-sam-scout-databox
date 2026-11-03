@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Scout LIO-SAM
-Name[zh_CN]=Scout 激光建图
-Comment=Live LiDAR map, aligned scan and trajectory
-Exec=bash /mnt/nvme0n1/autoware/lio_sam_ros2_ws/deploy/start_lio_sam.bash
-Icon=rviz
-Terminal=true
-Categories=Science;Robotics;

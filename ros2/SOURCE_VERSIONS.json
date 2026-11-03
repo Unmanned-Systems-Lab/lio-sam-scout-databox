@@ -1,0 +1,109 @@
+{
+  "format": 1,
+  "generated_date": "2026-11-03",
+  "hash_algorithm": "SHA256 over case-sensitive sorted relative path components; per file: UTF-8 POSIX relative path + NUL + raw SHA256(file); runtime output directories ignored as defined in tools/audit_source_bundle.py",
+  "archive_policy": "Source snapshots; nested .git* metadata and build outputs excluded; symlinks materialized. Hash covers shipped bytes including retained license notices. Source commit identifies baseline; snapshot may contain local changes.",
+  "components": [
+    {
+      "path": "src/lio_sam_ros2",
+      "source": "https://github.com/TixiaoShan/LIO-SAM",
+      "source_commit": "08af3f32f01725372d4269838dc44c19c6d9e76b",
+      "version": "ros2",
+      "license": "BSD-3-Clause",
+      "notes": "Scout ROS 2/Helios32 IMU and TF fixes; see deploy/lio_sam_ros2.patch",
+      "files": 15,
+      "source_tree_sha256": "438d6f9f3a866a55500ff563a22026a381f8990cde02d803157da48068d3d6fd"
+    },
+    {
+      "path": "src/rslidar_sdk",
+      "source": "https://github.com/Unmanned-Systems-Lab/robosense_driver_ros2",
+      "source_commit": "e6d9ba7ee3e4a13ddccfcc89874f2c964e27dab6",
+      "version": "rslidar_sdk 1.5.16",
+      "license": "BSD-3-Clause",
+      "notes": "Tested Autoware fork, native XYZIRCAEDT; includes full src/rs_driver sources; packaging change: generated CMake package configs are written in the build directory, never source; rs_driver version 1.5.18",
+      "files": 301,
+      "source_tree_sha256": "09a42061c405885ef896215d97a9484c429bef3f27ac3bf03d8ba3975d100668"
+    },
+    {
+      "path": "src/rslidar_msg",
+      "source": "https://github.com/Unmanned-Systems-Lab/robosense_driver_ros2",
+      "source_commit": "e6d9ba7ee3e4a13ddccfcc89874f2c964e27dab6",
+      "version": "rslidar_msg",
+      "license": "BSD-3-Clause",
+      "notes": "Copied from tested fork",
+      "files": 9,
+      "source_tree_sha256": "f42e2d3b230530003d4b9f0b6cd195d5cf6d17844478fdbcfa994dad647d747b"
+    },
+    {
+      "path": "src/scout_vehicle_description",
+      "source": "https://github.com/Unmanned-Systems-Lab/autoware.scout",
+      "source_commit": "65cf4e135230a844f1c555561c5b941be60a931d",
+      "version": "0.1.0",
+      "license": "MIT notice LICENSE-ELE; Apache-2.0 manifest/root notice",
+      "notes": "Vehicle models and local installation geometry; preserve both notices",
+      "files": 18,
+      "source_tree_sha256": "d303892b7fb085d3890cb882d4a3d6cb609fd9331f20fad0941c86fd90f5d11e"
+    },
+    {
+      "path": "src/scout_sensor_kit_description",
+      "source": "https://github.com/Unmanned-Systems-Lab/autoware.scout",
+      "source_commit": "65cf4e135230a844f1c555561c5b941be60a931d",
+      "version": "0.1.0",
+      "license": "Apache-2.0",
+      "notes": "Sensor installation description",
+      "files": 5,
+      "source_tree_sha256": "99efd2093d438955553be58cdfc01809879a8628e13948ec7ad4f40ce2dfb76e"
+    },
+    {
+      "path": "src/zed-ros2-wrapper",
+      "source": "https://github.com/stereolabs/zed-ros2-wrapper",
+      "source_commit": "b19902daf0136b6e841b5e415c2d01f425411c45",
+      "version": "5.5.0",
+      "license": "Apache-2.0",
+      "notes": "Tested upstream checkout",
+      "files": 96,
+      "source_tree_sha256": "6ad4981cba5c2a3aa00ff27e90b560fab786658008682d50e6ec1dddc47e89d4"
+    },
+    {
+      "path": "src/zed_msgs",
+      "source": "https://github.com/stereolabs/zed-ros2-interfaces",
+      "source_commit": "24f8d513ac8d4145a3bb6d72258f7e030443c1d8",
+      "version": "5.5.0",
+      "license": "Apache-2.0",
+      "notes": "Messages/services match tested installed 5.5.0 definitions",
+      "files": 29,
+      "source_tree_sha256": "3028bc48b106dfc5688fb459beca4bdb35f4875417a98ae59d79f15de03f51f3"
+    },
+    {
+      "path": "src/zed_description",
+      "source": "https://github.com/stereolabs/zed-ros2-description",
+      "source_commit": "22468247c1653d08a1e213809f3e9ce76291487d",
+      "version": "0.2.0",
+      "license": "Apache-2.0",
+      "notes": "URDF matches tested installed description",
+      "files": 26,
+      "source_tree_sha256": "8963fe35166a77ca8fc86ccaa2995befd5f5e7d70fcc143567ee3aa1ca5b751e"
+    },
+    {
+      "path": "third_party/gtsam",
+      "source": "https://github.com/borglab/gtsam",
+      "source_commit": "c57988fe554e7213c77fe379c1d7c483de26ad33",
+      "version": "4.2.0",
+      "license": "BSD-3-Clause plus embedded third-party notices",
+      "notes": "Full source; system Eigen, TBB disabled, no unstable module required",
+      "files": 4627,
+      "source_tree_sha256": "161acd993bdb07e67e3f4beca88dc6c2f541041b3ffa200fe859b3b2a7a6d460"
+    }
+  ],
+  "external_runtime": [
+    {
+      "name": "ZED SDK",
+      "version": "5.5.1",
+      "bundled": false,
+      "install_prefix": "/usr/local/zed",
+      "installer_url": "https://stereolabs.sfo2.cdn.digitaloceanspaces.com/zedsdk/5.5/ZED_SDK_Tegra_L4T36.5_v5.5.1.zstd.run",
+      "installer_sha256": "a4564d9272724e523572403a0decc33169a849161c37bd1546373a17f4588a57",
+      "reason": "Proprietary SDK is installed through official installer, not redistributed as source"
+    }
+  ]
+}

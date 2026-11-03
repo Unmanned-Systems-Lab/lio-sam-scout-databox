@@ -1,3 +1,40 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 7f4b783..d179827 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -28,7 +28,7 @@ set(OpenCV_STATIC ON)
+ find_package(OpenCV REQUIRED)
+ find_package(PCL REQUIRED)
+ find_package(GTSAM REQUIRED)
+-find_package(Eigen REQUIRED)
++find_package(Eigen3 REQUIRED)
+ find_package(OpenMP REQUIRED)
+ 
+ include_directories(
+@@ -49,8 +49,8 @@ ament_target_dependencies(${PROJECT_NAME}_imageProjection rclcpp rclpy std_msgs
+ target_link_libraries(${PROJECT_NAME}_imageProjection "${cpp_typesupport_target}") 
+ 
+ add_executable(${PROJECT_NAME}_imuPreintegration src/imuPreintegration.cpp)
+-ament_target_dependencies(${PROJECT_NAME}_imuPreintegration rclcpp rclpy std_msgs sensor_msgs geometry_msgs nav_msgs pcl_conversions pcl_msgs visualization_msgs tf2 tf2_ros tf2_eigen tf2_sensor_msgs tf2_geometry_msgs OpenCV PCL GTSAM Eigen)
+-target_link_libraries(${PROJECT_NAME}_imuPreintegration gtsam "${cpp_typesupport_target}")
++ament_target_dependencies(${PROJECT_NAME}_imuPreintegration rclcpp rclpy std_msgs sensor_msgs geometry_msgs nav_msgs pcl_conversions pcl_msgs visualization_msgs tf2 tf2_ros tf2_eigen tf2_sensor_msgs tf2_geometry_msgs OpenCV PCL GTSAM)
++target_link_libraries(${PROJECT_NAME}_imuPreintegration gtsam Eigen3::Eigen "${cpp_typesupport_target}")
+ 
+ add_executable(${PROJECT_NAME}_mapOptimization src/mapOptmization.cpp)
+ ament_target_dependencies(${PROJECT_NAME}_mapOptimization rclcpp rclpy std_msgs sensor_msgs geometry_msgs nav_msgs pcl_conversions pcl_msgs visualization_msgs tf2 tf2_ros tf2_eigen tf2_sensor_msgs tf2_geometry_msgs OpenCV PCL GTSAM)
+diff --git a/package.xml b/package.xml
+index 37de34d..bc75e1e 100644
+--- a/package.xml
++++ b/package.xml
+@@ -7,7 +7,7 @@
+ 
+   <maintainer email="shant@mit.edu">Tixiao Shan</maintainer>
+ 
+-  <license>TODO</license>
++  <license>BSD-3-Clause</license>
+ 
+   <author>Tixiao Shan</author>
+ 
 diff --git a/src/imageProjection.cpp b/src/imageProjection.cpp
 index eee1efb..a7522e8 100644
 --- a/src/imageProjection.cpp
@@ -51,10 +88,18 @@ index eee1efb..a7522e8 100644
          }
  
 diff --git a/src/imuPreintegration.cpp b/src/imuPreintegration.cpp
-index 8420c04..aa59a50 100644
+index 8420c04..e65baaa 100644
 --- a/src/imuPreintegration.cpp
 +++ b/src/imuPreintegration.cpp
-@@ -108,6 +108,8 @@ public:
+@@ -14,7 +14,6 @@
+ #include <gtsam/inference/Symbol.h>
+ 
+ #include <gtsam/nonlinear/ISAM2.h>
+-#include <gtsam_unstable/nonlinear/IncrementalFixedLagSmoother.h>
+ 
+ using gtsam::symbol_shorthand::X; // Pose3 (x,y,z,r,p,y)
+ using gtsam::symbol_shorthand::V; // Vel   (xdot,ydot,zdot)
+@@ -108,6 +107,8 @@ public:
              else
                  break;
          }
@@ -63,7 +108,7 @@ index 8420c04..aa59a50 100644
          Eigen::Isometry3d imuOdomAffineFront = odom2affine(imuOdomQueue.front());
          Eigen::Isometry3d imuOdomAffineBack = odom2affine(imuOdomQueue.back());
          Eigen::Isometry3d imuOdomAffineIncre = imuOdomAffineFront.inverse() * imuOdomAffineBack;
-@@ -135,6 +137,7 @@ public:
+@@ -135,6 +136,7 @@ public:
              catch (tf2::TransformException ex)
              {
                  RCLCPP_ERROR(get_logger(), "%s", ex.what());
@@ -71,7 +116,7 @@ index 8420c04..aa59a50 100644
              }
              tf2::Stamped<tf2::Transform> tb(
                  tCur * lidar2Baselink, tf2_ros::fromMsg(odomMsg->header.stamp), odometryFrame);
-@@ -516,7 +519,7 @@ public:
+@@ -516,7 +518,7 @@ public:
          auto odometry = nav_msgs::msg::Odometry();
          odometry.header.stamp = thisImu.header.stamp;
          odometry.header.frame_id = odometryFrame;

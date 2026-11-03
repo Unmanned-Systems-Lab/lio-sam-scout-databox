@@ -5,7 +5,7 @@
   <description>Validated RoboSense XYZIRT conversion for Scout LIO-SAM.</description>
   <maintainer email="maintainer@example.com">Scout maintainers</maintainer>
   <license>BSD-3-Clause</license>
-  <buildtool_depend>ament_python</buildtool_depend>
+  <buildtool_depend>python3-setuptools</buildtool_depend>
   <exec_depend>rclpy</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>
   <exec_depend>python3-numpy</exec_depend>
