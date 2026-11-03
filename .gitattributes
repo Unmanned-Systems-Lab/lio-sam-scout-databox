@@ -1,8 +1,6 @@
-*.bash text eol=lf
-*.py text eol=lf
-*.yaml text eol=lf
-*.rviz text eol=lf
-*.md text eol=lf
+/ros2/** text=auto eol=lf
+/README.md text eol=lf
+/README_ROS1.md text eol=lf
 
 # Preserve formatting in the pinned upstream import and its context patch.
 ros2/src/lio_sam_ros2/** -whitespace
