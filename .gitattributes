@@ -1,0 +1,9 @@
+*.bash text eol=lf
+*.py text eol=lf
+*.yaml text eol=lf
+*.rviz text eol=lf
+*.md text eol=lf
+
+# Preserve formatting in the pinned upstream import and its context patch.
+ros2/src/lio_sam_ros2/** -whitespace
+ros2/deploy/lio_sam_ros2.patch -whitespace

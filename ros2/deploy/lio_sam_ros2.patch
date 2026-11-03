@@ -1,0 +1,122 @@
+diff --git a/src/imageProjection.cpp b/src/imageProjection.cpp
+index eee1efb..a7522e8 100644
+--- a/src/imageProjection.cpp
++++ b/src/imageProjection.cpp
+@@ -263,12 +263,30 @@ public:
+         // get timestamp
+         cloudHeader = currentCloudMsg.header;
+         timeScanCur = stamp2Sec(cloudHeader.stamp);
+-        timeScanEnd = timeScanCur + laserCloudIn->points.back().time;
+     
+         // remove Nan
+         vector<int> indices;
+         pcl::removeNaNFromPointCloud(*laserCloudIn, *laserCloudIn, indices);
+ 
++        if (laserCloudIn->empty())
++        {
++            RCLCPP_WARN(get_logger(), "Ignoring empty point cloud after NaN removal");
++            return false;
++        }
++        // RoboSense clouds may be organized by ring rather than capture time.
++        // Require IMU coverage through the latest point, not only the last one.
++        double scanDuration = 0.0;
++        for (const auto &point : laserCloudIn->points)
++        {
++            if (!std::isfinite(point.time) || point.time < 0.0f || point.time > 0.2f)
++            {
++                RCLCPP_WARN(get_logger(), "Ignoring cloud with invalid relative point time");
++                return false;
++            }
++            scanDuration = std::max(scanDuration, static_cast<double>(point.time));
++        }
++        timeScanEnd = timeScanCur + scanDuration;
++
+         // check dense flag
+         if (laserCloudIn->is_dense == false)
+         {
+@@ -538,7 +556,14 @@ public:
+ 
+         if (firstPointFlag == true)
+         {
+-            transStartInverse = (pcl::getTransformation(posXCur, posYCur, posZCur, rotXCur, rotYCur, rotZCur)).inverse();
++            // The first retained point need not be the first captured point.
++            // Keep deskew consistent with the cloud header and initial pose.
++            float rotXStart, rotYStart, rotZStart;
++            findRotation(timeScanCur, &rotXStart, &rotYStart, &rotZStart);
++            float posXStart, posYStart, posZStart;
++            findPosition(0.0, &posXStart, &posYStart, &posZStart);
++            transStartInverse = pcl::getTransformation(posXStart, posYStart, posZStart,
++                rotXStart, rotYStart, rotZStart).inverse();
+             firstPointFlag = false;
+         }
+ 
+diff --git a/src/imuPreintegration.cpp b/src/imuPreintegration.cpp
+index 8420c04..aa59a50 100644
+--- a/src/imuPreintegration.cpp
++++ b/src/imuPreintegration.cpp
+@@ -108,6 +108,8 @@ public:
+             else
+                 break;
+         }
++        if (imuOdomQueue.empty())
++            return;
+         Eigen::Isometry3d imuOdomAffineFront = odom2affine(imuOdomQueue.front());
+         Eigen::Isometry3d imuOdomAffineBack = odom2affine(imuOdomQueue.back());
+         Eigen::Isometry3d imuOdomAffineIncre = imuOdomAffineFront.inverse() * imuOdomAffineBack;
+@@ -135,6 +137,7 @@ public:
+             catch (tf2::TransformException ex)
+             {
+                 RCLCPP_ERROR(get_logger(), "%s", ex.what());
++                return;
+             }
+             tf2::Stamped<tf2::Transform> tb(
+                 tCur * lidar2Baselink, tf2_ros::fromMsg(odomMsg->header.stamp), odometryFrame);
+@@ -516,7 +519,7 @@ public:
+         auto odometry = nav_msgs::msg::Odometry();
+         odometry.header.stamp = thisImu.header.stamp;
+         odometry.header.frame_id = odometryFrame;
+-        odometry.child_frame_id = "odom_imu";
++        odometry.child_frame_id = lidarFrame;
+ 
+         // transform imu pose to ldiar
+         gtsam::Pose3 imuPose = gtsam::Pose3(currentState.quaternion(), currentState.position());
+diff --git a/src/mapOptmization.cpp b/src/mapOptmization.cpp
+index 1fa4451..25e3c1d 100644
+--- a/src/mapOptmization.cpp
++++ b/src/mapOptmization.cpp
+@@ -1639,7 +1639,7 @@ public:
+         nav_msgs::msg::Odometry laserOdometryROS;
+         laserOdometryROS.header.stamp = timeLaserInfoStamp;
+         laserOdometryROS.header.frame_id = odometryFrame;
+-        laserOdometryROS.child_frame_id = "odom_mapping";
++        laserOdometryROS.child_frame_id = lidarFrame;
+         laserOdometryROS.pose.pose.position.x = transformTobeMapped[3];
+         laserOdometryROS.pose.pose.position.y = transformTobeMapped[4];
+         laserOdometryROS.pose.pose.position.z = transformTobeMapped[5];
+@@ -1650,15 +1650,8 @@ public:
+         laserOdometryROS.pose.pose.orientation = quat_msg;
+         pubLaserOdometryGlobal->publish(laserOdometryROS);
+ 
+-        // Publish TF
+-        quat_tf.setRPY(transformTobeMapped[0], transformTobeMapped[1], transformTobeMapped[2]);
+-        tf2::Transform t_odom_to_lidar = tf2::Transform(quat_tf, tf2::Vector3(transformTobeMapped[3], transformTobeMapped[4], transformTobeMapped[5]));
+-        tf2::TimePoint time_point = tf2_ros::fromRclcpp(timeLaserInfoStamp);
+-        tf2::Stamped<tf2::Transform> temp_odom_to_lidar(t_odom_to_lidar, time_point, odometryFrame);
+-        geometry_msgs::msg::TransformStamped trans_odom_to_lidar;
+-        tf2::convert(temp_odom_to_lidar, trans_odom_to_lidar);
+-        trans_odom_to_lidar.child_frame_id = "lidar_link";
+-        br->sendTransform(trans_odom_to_lidar);
++        // TransformFusion publishes odom -> base_link; the vehicle URDF supplies
++        // base_link -> lidarFrame. Keep a single parent for each sensor frame.
+ 
+         // Publish odometry for ROS (incremental)
+         static bool lastIncreOdomPubFlag = false;
+@@ -1698,7 +1691,7 @@ public:
+             }
+             laserOdomIncremental.header.stamp = timeLaserInfoStamp;
+             laserOdomIncremental.header.frame_id = odometryFrame;
+-            laserOdomIncremental.child_frame_id = "odom_mapping";
++            laserOdomIncremental.child_frame_id = lidarFrame;
+             laserOdomIncremental.pose.pose.position.x = x;
+             laserOdomIncremental.pose.pose.position.y = y;
+             laserOdomIncremental.pose.pose.position.z = z;

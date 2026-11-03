@@ -1,0 +1,23 @@
+# ROS workspaces and runtime output
+**/build/
+**/install/
+**/log/
+**/logs/
+**/validation/
+**/maps/
+**/mapping_reviews/
+**/deps/
+**/__pycache__/
+*.py[cod]
+*.pcd
+*.bag
+*.db3
+*.mcap
+*.tar
+*.tar.gz
+*.zip
+*.log
+.env
+**/*.egg-info/
+**/.pytest_cache/
+**/.venv/

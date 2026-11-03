@@ -1,0 +1,96 @@
+/**:
+  ros__parameters:
+
+    # Topics
+    pointCloudTopic: "/lio_sam/points"                   # Point cloud data
+    imuTopic: "/zed2i/zed_node/imu/data"                        # IMU data
+    odomTopic: "/lio_sam/odometry/imu"                    # IMU pre-preintegration odometry, same frequency as IMU
+    gpsTopic: "/lio_sam/unused_gps"                    # GPS odometry topic from navsat, see module_navsat.launch file
+
+    # Frames
+    lidarFrame: "rslidar"
+    baselinkFrame: "base_link"
+    odometryFrame: "lio_odom"
+    mapFrame: "lio_map"
+
+    # GPS Settings
+    useImuHeadingInitialization: false           # if using GPS data, set to "true"
+    useGpsElevation: false                       # if GPS elevation is bad, set to "false"
+    gpsCovThreshold: 2.0                         # m^2, threshold for using GPS data
+    poseCovThreshold: 25.0                       # m^2, threshold for using GPS data
+
+    # Export settings
+    savePCD: false                               # https://github.com/TixiaoShan/LIO-SAM/issues/3
+    savePCDDirectory: "/Downloads/LOAM/"         # in your home folder, starts and ends with "/". Warning: the code deletes "LOAM" folder then recreates it. See "mapOptimization" for implementation
+
+    # Sensor Settings
+    sensor: velodyne                               # lidar sensor type, either 'velodyne', 'ouster' or 'livox'
+    N_SCAN: 32                                   # number of lidar channels (i.e., Velodyne/Ouster: 16, 32, 64, 128, Livox Horizon: 6)
+    Horizon_SCAN: 1800  # Live RSHELIOS measurement: 1800 columns x 32 rings at 10 Hz.
+    downsampleRate: 1                            # default: 1. Downsample your data if too many
+    # points. i.e., 16 = 64 / 4, 16 = 16 / 1
+    lidarMinRange: 1.0                           # default: 1.0, minimum lidar range to be used
+    lidarMaxRange: 200.0                        # default: 1000.0, maximum lidar range to be used
+
+    # IMU Settings
+    imuAccNoise: 1.9702320405988342e-02
+    imuGyrNoise: 1.4655844499465677e-03
+    imuAccBiasN: 5.5264432475617012e-04
+    imuGyrBiasN: 4.2690808742717860e-06
+
+    imuGravity: 9.80511
+    imuRPYWeight: 0.01
+
+    # Initial estimate from existing Scout CAD mounting and ZED factory IMU TF.
+    # Read on the target 2026-11-03; refine with physical lidar/IMU calibration.
+    # ROS2: extrinsicRot = R_lidar_imu; extrinsicRPY = R_imu_lidar.
+    extrinsicTrans: [0.09299433677684577, 0.0369389983266592, -0.17065775946218453]
+    extrinsicRot: [0.9999860182182453, 0.005251756182304657, 0.0006184052238152751,
+                   -0.0052479986182193215, 0.9999686542049222, -0.005928669167696766,
+                   -0.0006495217643661448, 0.005925340884578286, 0.9999822340706255]
+    extrinsicRPY: [0.9999860182182453, -0.0052479986182193215, -0.0006495217643661448,
+                   0.005251756182304657, 0.9999686542049222, 0.005925340884578286,
+                   0.0006184052238152751, -0.005928669167696766, 0.9999822340706255]
+
+    # LOAM feature threshold
+    edgeThreshold: 1.0
+    surfThreshold: 0.1
+    edgeFeatureMinValidNum: 10
+    surfFeatureMinValidNum: 100
+
+    # voxel filter paprams
+    odometrySurfLeafSize: 0.4                     # default: 0.4 - outdoor, 0.2 - indoor
+    mappingCornerLeafSize: 0.2                    # default: 0.2 - outdoor, 0.1 - indoor
+    mappingSurfLeafSize: 0.4                      # default: 0.4 - outdoor, 0.2 - indoor
+
+    # robot motion constraint (in case you are using a 2D robot)
+    z_tollerance: 1000.0                          # meters
+    rotation_tollerance: 1000.0                   # radians
+
+    # CPU Params
+    numberOfCores: 4                              # number of cores for mapping optimization
+    mappingProcessInterval: 0.15                  # seconds, regulate mapping frequency
+
+    # Surrounding map
+    surroundingkeyframeAddingDistThreshold: 1.0   # meters, regulate keyframe adding threshold
+    surroundingkeyframeAddingAngleThreshold: 0.2  # radians, regulate keyframe adding threshold
+    surroundingKeyframeDensity: 2.0               # meters, downsample surrounding keyframe poses
+    surroundingKeyframeSearchRadius: 50.0         # meters, within n meters scan-to-map optimization
+    # (when loop closure disabled)
+
+    # Loop closure
+    loopClosureEnableFlag: false
+    loopClosureFrequency: 1.0                     # Hz, regulate loop closure constraint add frequency
+    surroundingKeyframeSize: 50                   # submap size (when loop closure enabled)
+    historyKeyframeSearchRadius: 15.0             # meters, key frame that is within n meters from
+    # current pose will be considerd for loop closure
+    historyKeyframeSearchTimeDiff: 30.0           # seconds, key frame that is n seconds older will be
+    # considered for loop closure
+    historyKeyframeSearchNum: 25                  # number of hostory key frames will be fused into a
+    # submap for loop closure
+    historyKeyframeFitnessScore: 0.3              # icp threshold, the smaller the better alignment
+
+    # Visualization
+    globalMapVisualizationSearchRadius: 1000.0    # meters, global map visualization radius
+    globalMapVisualizationPoseDensity: 10.0       # meters, global map visualization keyframe density
+    globalMapVisualizationLeafSize: 1.0           # meters, global map visualization cloud density
